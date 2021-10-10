@@ -1,4 +1,5 @@
 const { Buffer } = require("buffer");
+const { adler32 } = require("~/utils/math");
 
 const bufferMaxSize = 65536;
 const maxStringSize = 65536;
@@ -82,7 +83,11 @@ export default class OutputMessage {
   }
 
   writeChecksum() {
-    // TODO
+    const checksum = adler32(this.buffer, this.headerPos, this.messageSize);
+    assert(this.headerPos - 4 >= 0);
+    this.headerPos -= 4;
+    this.buffer.writeUInt32LE(checksum, this.headerPos);
+    this.messageSize += 4;
   }
 
   writeMessageSize() {
