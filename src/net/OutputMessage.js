@@ -78,10 +78,6 @@ export default class OutputMessage {
     this.messageSize += quantity;
   }
 
-  encryptRSA() {
-    // TODO
-  }
-
   writeChecksum() {
     const checksum = adler32(this.buffer, this.headerPos, this.messageSize);
     assert(this.headerPos - 4 >= 0);
