@@ -6,9 +6,9 @@ const maxStringSize = 65536;
 const maxHeaderSize = 8;
 
 export default class OutputMessage {
-  constructor() {
+  constructor(rsaInstance) {
     this.buffer = Buffer.allocUnsafe(bufferMaxSize);
-
+    this.rsaInstance = rsaInstance;
     this.reset();
   }
 
@@ -76,6 +76,22 @@ export default class OutputMessage {
     this.buffer.fill(value, this.writePos, this.writePos + quantity);
     this.writePos += quantity;
     this.messageSize += quantity;
+  }
+
+  encryptRSA() {
+    if (!this.rsaInstance) {
+      throw new Error("OutputMessage RSA instance is not set");
+    }
+
+    const rsaSize = this.rsaInstance.getSize();
+
+    if (this.messageSize < rsaSize) {
+      throw new Error("OutputMessage Insufficient message size to encrypt");
+    }
+
+    const partToEncrypt = this.buffer.slice(this.writePos - rsaSize, rsaSize);
+
+    this.rsaInstance.encrypt(partToEncrypt);
   }
 
   writeChecksum() {

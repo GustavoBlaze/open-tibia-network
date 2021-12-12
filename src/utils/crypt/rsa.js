@@ -11,6 +11,10 @@ export default class RSA {
     this.e = Number(e);
   }
 
+  getSize() {
+    return this.size;
+  }
+
   getPublicBaseKey() {
     const firstSequence = new KJUR.asn1.DERSequence({
       array: [
