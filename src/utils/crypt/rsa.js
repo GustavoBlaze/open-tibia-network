@@ -1,10 +1,10 @@
-const { BigInteger } = require("jsbn");
-const { KJUR } = require("jsrsasign");
-const crypto = require("crypto");
+import { BigInteger } from "jsbn";
+import { KJUR } from "jsrsasign";
+import crypto from "crypto";
 
-const { hex2b64, wordwrap } = require("../../utils/string");
+import { hex2b64, wordwrap } from "~/utils/string";
 
-class RSA {
+export default class RSA {
   constructor({ n, e = "65537" }) {
     this.n = new BigInteger(n);
     this.size = this.n.bitLength() / 8;
@@ -60,5 +60,3 @@ class RSA {
     );
   }
 }
-
-module.exports = RSA;

@@ -2,7 +2,7 @@ const b64map =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 const b64pad = "=";
 
-function hex2b64(h) {
+export default function hex2b64(h) {
   let i;
   let c;
   let ret = "";
@@ -22,5 +22,3 @@ function hex2b64(h) {
   }
   return ret;
 }
-
-module.exports = hex2b64;

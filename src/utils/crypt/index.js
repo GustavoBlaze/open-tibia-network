@@ -1,5 +1,1 @@
-const RSA = require("./rsa");
-
-module.exports = {
-  RSA,
-};
+export { default as RSA } from "./rsa";

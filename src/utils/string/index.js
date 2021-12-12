@@ -1,7 +1,2 @@
-const hex2b64 = require("./hex2b64");
-const wordwrap = require("./wordwrap");
-
-module.exports = {
-  hex2b64,
-  wordwrap,
-};
+export { default as hex2b64 } from "./hex2b64";
+export { default as wordwrap } from "./wordwrap";

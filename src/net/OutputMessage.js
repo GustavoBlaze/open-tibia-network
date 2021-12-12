@@ -1,5 +1,5 @@
-const { Buffer } = require("buffer");
-const { adler32 } = require("~/utils/math");
+import { Buffer } from "buffer";
+import { adler32 } from "~/utils/math";
 
 const bufferMaxSize = 65536;
 const maxStringSize = 65536;
