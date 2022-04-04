@@ -5,5 +5,8 @@
   "license": "MIT",
   "scripts": {
     "start": "node src/index.js"
+  },
+  "dependencies": {
+    "jsbn": "^1.1.0"
   }
 }
