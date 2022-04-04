@@ -1,4 +1,4 @@
-function adler32(buffer, size) {
+export function adler32(buffer, size) {
   let a = 1,
     b = 0,
     i = 0,
@@ -19,7 +19,3 @@ function adler32(buffer, size) {
 
   return (b << 16) | a;
 }
-
-module.exports = {
-  adler32,
-};

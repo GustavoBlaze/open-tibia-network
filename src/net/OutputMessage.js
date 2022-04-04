@@ -1,15 +1,14 @@
-const { Buffer } = require("buffer");
-const { adler32 } = require("~/utils/math");
-const rsa = require("~/crypt/rsa");
+import { Buffer } from "buffer";
+import { adler32 } from "~/utils/math";
 
 const bufferMaxSize = 65536;
 const maxStringSize = 65536;
 const maxHeaderSize = 8;
 
 export default class OutputMessage {
-  constructor() {
+  constructor(rsaInstance) {
     this.buffer = Buffer.allocUnsafe(bufferMaxSize);
-
+    this.rsaInstance = rsaInstance;
     this.reset();
   }
 
@@ -80,16 +79,19 @@ export default class OutputMessage {
   }
 
   encryptRSA() {
-    const size = 128;
-
-    if (this.messageSize < size) {
-      throw new Error("OutputMessage RSA encryption: message too small");
+    if (!this.rsaInstance) {
+      throw new Error("OutputMessage RSA instance is not set");
     }
 
-    const toEncrypt = this.buffer.slice(this.writePos - size, size);
-    const encrypted = rsa.encrypt(toEncrypt);
+    const rsaSize = this.rsaInstance.getSize();
 
-    this.buffer.write(encrypted, this.writePos - size, size);
+    if (this.messageSize < rsaSize) {
+      throw new Error("OutputMessage Insufficient message size to encrypt");
+    }
+
+    const partToEncrypt = this.buffer.slice(this.writePos - rsaSize, rsaSize);
+
+    this.rsaInstance.encrypt(partToEncrypt);
   }
 
   writeChecksum() {
