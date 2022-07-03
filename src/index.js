@@ -1,4 +1,5 @@
 // Testing RSA encryption
+import { Buffer } from "node:buffer";
 import { RSA } from "~/utils/crypt";
 
 const rsa = new RSA({

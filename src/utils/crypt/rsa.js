@@ -1,6 +1,6 @@
 import { BigInteger } from "jsbn";
 import { KJUR } from "jsrsasign";
-import crypto from "crypto";
+import crypto from "node:crypto";
 
 import { hex2b64, wordwrap } from "~/utils/string";
 
