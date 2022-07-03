@@ -111,8 +111,17 @@ export default class InputMessage {
     return value / Math.pow(10, precision);
   }
 
+  getReadBuffer() {
+    return this._buffer.subarray(this._readPos);
+  }
+
+  readSize() {
+    return this.getU16();
+  }
+
   decryptRsa() {
     // TODO: implement
+    return false;
   }
 
   fillBuffer(buffer: Buffer, size?: number) {

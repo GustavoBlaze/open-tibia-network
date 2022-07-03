@@ -26,6 +26,22 @@ export default class OutputMessage {
     this._messageSize = 0;
   }
 
+  getWritePos() {
+    return this._writePos;
+  }
+
+  getMessageSize() {
+    return this._messageSize;
+  }
+
+  getHeaderBuffer() {
+    return this._buffer.subarray(this._headerPos);
+  }
+
+  getDataBuffer(offset = 0) {
+    return this._buffer.subarray(maxHeaderSize + offset);
+  }
+
   canWrite(bytes: number) {
     return this._writePos + bytes <= bufferMaxSize;
   }
